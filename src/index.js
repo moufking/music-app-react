@@ -3,11 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Search from './components/search';
+import { Provider } from "react-redux";
+import store from "./store";
+import { LearnContext } from './components/learnContext';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <Provider store={store}>
+    
     <App />
+    <Search/>
+    <LearnContext />
+    </Provider>
   </React.StrictMode>
 );
 

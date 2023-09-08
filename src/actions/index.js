@@ -1,22 +1,27 @@
 export const addFavorisAction = (value) => {
-  console.log(value, '[addFavorisAction action ]')
-    return {
-      type: "ADD_FAVORIS",
-      payload: value,
-    };
-  };
 
-  export const loadList = (value) => {
+    console.log('laddFavorisAction', value, 'action')
 
     return {
-      type: "LOAD_MUSIC",
-      payload: value
-    };
-  };
-  
-  export const deleteFavorisAction = (id) => {
+        type: 'ADD_FAVORIS',
+        payload : value
+    }
+}
+
+export const deleteFavorisAction = (id) => {
+    console.log('deleteFavorisAction', id, 'action')
     return {
-      type: "DELETE_FAVORIS",
-      payload: id,
-    };
-  };
+        type: 'DELETE_FAVORIS',
+        payload : id
+    }
+}
+
+export  const loadMusics = (data) => {
+
+    console.log('loadMusics', data, 'action')
+    return {
+        type: 'LOAD_MUSICS',
+        payload : data
+    }
+
+}

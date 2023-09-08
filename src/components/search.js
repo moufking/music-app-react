@@ -4,50 +4,41 @@ import apiClient from '../services/api';
 import Music from './music';
 import Favoris from './favoris';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorisAction, addTodo, deleteFavorisAction, loadList } from '../actions';
+import { addFavorisAction, deleteFavorisAction, loadMusics } from '../actions';
 
 
 const Search = () => {
     const [name, setName] = useState('')// VIDE
-    const [list, setList] = useState([]);
-    const [favoris, setFavoris] = useState([]);
-    const musics = useSelector((state) => state.musics);
-    const favoris_list = useSelector((state) => state.favoris);
+    const musics =  useSelector((state) => state.musics)
+    const favorisData =  useSelector((state) => state.favoris)
 
+    //musics => []
 
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        console.log(favoris, 'render', musics) 
+        //console.log( musics,favorisData , '[useEffect search.js]')
       },);
 
 
       const handleSubmit = (e) => {
         e.preventDefault();
        console.log('[handleSubmit]');
-
        apiClient.get('?term='+name+'&limit=25' ).then(response => {
-       // console.log(response.data, 'effect')
-        setList(response.data.results)
-        dispatch(loadList(response.data.results))
-
-        console.log(list, 'voir la liste')
+        dispatch(loadMusics(response.data.results))
     })
       }
 
       const addFavoris = (music) => {
         console.log(music, '[addFavoris] search.js');
-        setFavoris([...favoris, music ])   
-        dispatch(addFavorisAction(music))
+        dispatch(addFavorisAction(music)) 
+    
+         
     }
 
     const deleteFavoris = (favoris_delete) =>{
-        console.log(favoris, 'avant modification')
-        setFavoris(favoris.filter((t)=> t.trackId!== favoris_delete.trackId))
-        console.log(favoris, 'après modification')
-        dispatch(deleteFavorisAction(favoris_delete.trackId))
-        
+        dispatch(deleteFavorisAction(favoris_delete.trackId)) 
+
     }
 
 
@@ -69,9 +60,9 @@ const Search = () => {
 
                 <div className="container">
                     <div className="row">
-                        {favoris.length> 0 && <p>Liste de vos favoris</p>}
+                        {favorisData.length> 0 && <p>Liste de vos favoris</p>}
                         {
-                            favoris_list.map((favoris, index) => (
+                            favorisData.map((favoris, index) => (
                                 <Favoris favoris ={favoris} deleteFavoris={deleteFavoris} /> 
                             ))
                         }

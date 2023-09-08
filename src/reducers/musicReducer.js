@@ -1,30 +1,37 @@
 const initialState = {
-    musics: [],
-    favoris :[]
-  }
+    musics: [], // liste de nos musiques 
+    favoris: [] // liste de mes favoris
+}
 
-// This code snippet defines a reducer function for managing the state of a music application. It handles actions for adding and deleting favorite songs, as well as loading music data into the state.
-  const musicsReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'ADD_FAVORIS':
-        return {
-          ...state,
-          favoris: [...state.favoris, action.payload]
-        };
-      case 'DELETE_FAVORIS':
-        console.log('DELETE_FAVORIS')
-        return {
-          ...state,
-          favoris: state.favoris.filter(task => task.trackId !== action.payload)
-        };
-        case 'LOAD_MUSIC':
-            return {
-                ...state, 
-                musics: action.payload
-            }
-      default:
-        return state;
-    }
-  };
+const musicReducer = (state = initialState, action) => {
+     //action  type , payload ( données)
 
-  export default musicsReducer;
+        switch(action.type) {
+            case 'ADD_FAVORIS':
+                console.log('ADD_FAVORIS', action, 'reducers')
+
+                return{
+                    ...state,
+                    favoris : [...state.favoris, action.payload]
+                };
+
+            case 'DELETE_FAVORIS':
+                console.log('DELETE_FAVORIS', action, 'reducers')
+                return {
+                    ...state,
+                    favoris: state.favoris.filter((t)=> t.trackId!== action.payload)
+                }
+
+            case 'LOAD_MUSICS':
+                console.log('LOAD_MUSICS', action, 'reducers')
+                return {
+                    ...state,
+                    musics: action.payload,
+                }
+
+            default:
+                return state
+        }
+}   
+
+export default musicReducer;
